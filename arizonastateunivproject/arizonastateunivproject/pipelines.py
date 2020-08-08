@@ -11,6 +11,22 @@ from twisted.python.compat import unicode
 
 class ArizonastateunivprojectPipeline:
     def process_item(self, item, spider):
+        adapter = ItemAdapter(item)
+        category = adapter['sport']
+        mensSport = ['Baseball', 'Basketball', 'Cross Country', 'Football', 'Golf', 'Ice hockey',
+                    'Swimming & Diving', 'Tennis', 'Track & Field', 'Wrestling']
+        womensSport = ['Cross Country', 'Track & Field']
+        if "Men's" in category:
+            adapter['category']= "Men"
+        elif "Women's" in category:
+            adapter['category']= "Women"
+        else:
+            if any(sport in category for sport in mensSport):
+                adapter['category']= "Men"
+                if any(sport in category for sport in womensSport):
+                    adapter['category']= "Both"
+            else:
+                adapter['category']= "Women"
         return item
 
 class CsvPipeline(object):

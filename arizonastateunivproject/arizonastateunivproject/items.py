@@ -14,4 +14,5 @@ class ArizonastateunivprojectItem(scrapy.Item):
     email = scrapy.Field()
     nameurl = scrapy.Field()
     sport = scrapy.Field()
+    category = scrapy.Field()
     pass
