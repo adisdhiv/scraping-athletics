@@ -43,8 +43,8 @@ class AdrianbulldogsSpider(scrapy.Spider):
             result1 = result[i].css('.span6')
             for i in range(len(result1)):
                 result2 = result1[i].css('.info')
-                item['url'] = result2.css('p > a::attr(href)').get()
-                item['imgurl'] = result2.css('p > a > img::attr(src)').get()
+                item['url'] =  ('https://adrianbulldogs.com{}').format(result2.css('p > a::attr(href)').get())
+                item['imgurl'] =  ('https://adrianbulldogs.com{}').format(result2.css('p > a > img::attr(src)').get())
                 item['name'] = result2.css('p > a > span::text').get()
                 item['title'] = result2.css('p:nth-child(2)::text').get()
                 item['phone'] = result2.css('p:nth-child(4)::text   ').get()

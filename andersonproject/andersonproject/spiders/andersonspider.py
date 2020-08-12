@@ -4,7 +4,7 @@ from andersonproject.items import AndersonprojectItem
 class AndersonspiderSpider(scrapy.Spider):
     name = 'andersonspider'
     allowed_domains = ['athletics.anderson.edu']
-    start_urls = ['https://athletics.anderson.edu/landing/index/']
+    start_urls = ['https://athletics.anderson.edu/']
 
     def parse(self, response):
         xpath = ['//*[@id="nav"]/ul/li[1]', '//*[@id="nav"]/ul/li[2]']
@@ -28,8 +28,8 @@ class AndersonspiderSpider(scrapy.Spider):
             result1 = result[i].css('.span6')
             for i in range(len(result1)):
                 result2 = result1[i].css('.info')
-                item['url'] = result2.css('p > a::attr(href)').get()
-                item['imgurl'] = result2.css('p > a > img::attr(src)').get()
+                item['url'] = ('https://athletics.anderson.edu{}').format(result2.css('p > a::attr(href)').get())
+                item['imgurl'] = ('https://athletics.anderson.edu{}').format(result2.css('p > a > img::attr(src)').get())
                 item['name'] = result2.css('p > a > span::text').get()
                 item['title'] = result2.css('p:nth-child(2)::text').get()
                 item['phone'] = result2.css('p:nth-child(4)::text').get()
